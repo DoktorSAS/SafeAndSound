@@ -1,0 +1,303 @@
+<div id="settings" class="flexcontainer bgcolor">
+    <div class="header sectionheader" style="max-height: 6rem;">
+        <div class="icon icon48" data-image-path="svgs/settings.svg"></div>
+        <div class="textcontent">
+            <h1 class="title" data-lang-id="settings.title">Settings</h1>
+            <p class="subtitle" data-lang-id="settings.subtitle">Configure encryption algorithms and keys</p>
+        </div>
+    </div>
+
+    <div class="main flexsib" style="max-height: calc(100vh - 12rem);">
+        <div style="width: 70%;" class="outlinedcontainer borderoutline" data-text="ENCRYPTION KEYS AND FOLDERS">
+            <div style="max-height: calc(100vh - 16rem);overflow-y: auto;">
+                <div class="settings">
+                    <div class="option">
+                        <div class="option-text">
+                            <h1 data-lang-id="settings.encryption_algorithms_title" class="title">Encryption algorithms
+                            </h1>
+                            <p data-lang-id="settings.encryption_algorithms_description" class="subtitle">Choose the
+                                encryption algorithm it could be key based or an obfuscator.</p>
+                        </div>
+                        <div class="option-input">
+                            <div class="selectlist-container">
+                                <select id="selectlist-option-algorithm" class="selectlist-input"
+                                    onchange="updateEncryptAlgorithm()">
+                                    <option value="RSA">RSA</option>
+                                    <option value="MD5">MD5</option>
+                                    <option value="SHA256">SHA256</option>
+                                    <option value="BASE64">BASE64</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="keys-locations" style="margin: 0.5rem" class="outlinedcontainer borderoutline"
+                        data-text="KEYS LOCATIONS">
+
+                        <div class="option">
+                            <div class="option-text">
+                                <h1 data-lang-id="settings.private_key_location_title" class="title">Private key
+                                    location</h1>
+                                <p data-lang-id="settings.private_key_location_description" class="subtitle">Choose the
+                                    location of the private key</p>
+                            </div>
+                            <div class="option-input">
+                                <div class="file-input" data-id="privkey_fpath">
+                                    <input type="text" id="manualInput-privkey_fpath"
+                                        placeholder="Select a file path...">
+                                    <button class="clickFileButton" data-id="privkey_fpath"
+                                        data-dialog-title="Select private key file" data-image-path="svgs/folder.svg">
+                                        
+                                    </button>
+                                    <input type="file" id="fileSelector-privkey_fpath">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="option" style="margin-top: 1rem;">
+                            <div class="option-text">
+                                <h1 data-lang-id="settings.public_key_location_title" class="title">Public key location
+                                </h1>
+                                <p data-lang-id="settings.public_key_location_description" class="subtitle">Choose the
+                                    location of the public key</p>
+                            </div>
+                            <div class="option-input">
+                                <div class="file-input" data-id="pubkey_fpath">
+                                    <input type="text" id="manualInput-pubkey_fpath"
+                                        placeholder="Select a file path...">
+                                    <button class="clickFileButton" data-id="pubkey_fpath"
+                                        data-dialog-title="Select public key file" data-image-path="svgs/folder.svg">
+                                    </button>
+                                    <input type="file" id="fileSelector-pubkey_fpath">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="option">
+                        <div class="option-text">
+                            <h1 data-lang-id="settings.decryption_method_title" class="title">Descryption method</h1>
+                            <p data-lang-id="settings.decryption_method_description" class="subtitle">Choose what you
+                                want to use to descrypt your passwords.</p>
+                        </div>
+                        <div class="option-input">
+                            <div class="selectlist-container">
+                                <select id="selectlist-option-authkey" class="selectlist-input"
+                                    onchange="updateAuthMethod()">
+                                    <option value="p">PASSWORD</option>
+                                    <option value="c">PASSCODE</option>
+                                    <option value="d">IMAGE</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="option">
+                        <div class="option-text">
+                            <h1 data-lang-id="settings.language_title" class="title">Language</h1>
+                            <p data-lang-id="settings.language_description" class="subtitle">Choose the language you
+                                prefer to read the texts</p>
+                        </div>
+                        <div class="option-input">
+                            <div class="selectlist-container">
+                                <select id="selectlist-option-language" class="selectlist-input"
+                                    onchange="updateLanguage()">
+                                    <option value="it">IT - Italiano</option>
+                                    <option value="en">EN - English</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="width: 28%;" class="outlinedcontainer borderoutline" data-text="">
+            <p>HELLO!</p>
+        </div>
+    </div>
+
+    <div class="footer sectionfooter" style="max-height: 6rem;">
+        <div class="left">
+            <div class="icon-container">
+                <a target="_blank" rel="noopener noreferrer" href="https://github.com/DoktorSAS" class="link-icon"
+                    title="GitHub" data-image-path="svgs/socials/github.svg">
+                </a>
+                <a target="_blank" rel="noopener noreferrer" href="https://www.patreon.com/DoktorSAS" class="link-icon"
+                    title="Patreon" data-image-path="svgs/socials/patreon.svg">
+
+                </a>
+                <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/@DoktorSAS" class="link-icon"
+                    title="YouTube" data-image-path="svgs/socials/youtube.svg">
+                </a>
+                <a target="_blank" rel="noopener noreferrer" href="https://x.com/DoktorSAS" class="link-icon"
+                    title="X/Twitter" data-image-path="svgs/socials/x.svg">
+                </a>
+            </div>
+        </div>
+        <div class="right">
+            <div class="default-button">
+                <button data-lang-id="settings.reset_button" class="reset-button">Reset</button>
+                <button data-lang-id="settings.save_button" class="save-button">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    /* settings.css */
+    .settings {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        border-radius: 8px;
+        width: 100%;
+        margin-bottom: 10px;
+        padding-right: 15px;
+    }
+
+    .settings .option {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 1rem;
+        background-color: var(--card-background-color);
+        border-radius: 4px;
+        position: relative;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        border: 1px solid var(--primary-color-outline);
+        border-radius: 4px;
+        box-shadow: 0 2px 4px var(--primary-color-outline);
+    }
+
+    .settings .option:hover {
+        /*transform: translateY(-2px);*/
+        box-shadow: 0 6px 8px var(--primary-color-outline);
+    }
+
+    .settings .option-text {
+        flex: 3;
+        text-align: left;
+        padding-right: 4px;
+    }
+
+    .settings .option-input {
+        flex: 2;
+        text-align: right;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .settings .option-text .title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--primary-color);
+    }
+
+    .settings .option-text .subtitle {
+        font-size: 0.9rem;
+        color: var(--description-color);
+        opacity: 0.85;
+    }
+
+    .settings .option-input input,
+    .settings .option-input select,
+    .settings .option-input button {
+        padding: 1rem 0.75rem;
+        border-radius: 4px;
+        background-color: var(--background-color);
+        color: var(--primary-color);
+        transition: border-color 0.3s, background-color 0.3s;
+    }
+
+    .settings .option-input input:focus,
+    .settings .option-input select:focus {
+        outline: none;
+        border-color: var(--primary-color-outline);
+        background-color: var(--background-color);
+
+    }
+
+    .file-input {
+        position: relative;
+        border: 1px solid var(--primary-color-outline);
+        border-radius: 4px;
+        background-color: var(--background-color);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 0;
+    }
+
+    .file-input input[type="text"] {
+        flex-grow: 1;
+        padding: 12px;
+        /* Increased padding for better usability */
+        box-sizing: border-box;
+        border: none;
+        background: transparent;
+        color: var(--description-color);
+        height: 100%;
+        margin: 0;
+        margin-left: 4px;
+        /* Increased left margin for better spacing */
+    }
+
+    .file-input button {
+        background: none;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        /* Slightly larger border radius */
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px; 
+    }
+
+    .file-input button svg {
+        transition: all 0.2s ease-in-out;
+    }
+
+    .file-input button svg:hover {
+        transform: scale(1.1);
+    }
+
+    .file-input button svg:active {
+        transform: scale(0.9);
+        color: var(--primary-color);
+    }
+
+    .file-input svg {
+        width: 24px;
+        height: 24px;
+        fill: var(--primary-color);
+    }
+
+    .file-input input[type="file"] {
+        display: none;
+    }
+
+    .selectlist-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        border-radius: 4px;
+    }
+
+    .selectlist-container label {
+        font-size: 1.1rem;
+        color: var(--primary-color);
+    }
+
+    .selectlist-input {
+        background-color: var(---primary-color);
+        color: var(--primary-color);
+        width: 100%;
+        box-sizing: border-box;
+        color: var(--description-color);
+    }
+
+    .selectlist-input:focus {
+        outline: none;
+        border-color: var(--primary-color-outline);
+        background-color: var(--background-color)
+        /*background-color: rgba(255, 255, 255, 0.6);*/
+    }
+</style>

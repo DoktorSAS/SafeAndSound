@@ -1,0 +1,463 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    display: flex;
+    background-color: var(--background-color);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+
+:root {
+    --primary-color: #101820;
+    --primary-color-outline: #1018206d;
+    --description-color: #101820c3;
+    --secondary-color: #1ba098;
+    --background-color: #EDF1FF;
+    /*--card-background-color: #f9f9f9e9;*/
+    --card-background-color: hsl(208, 97%, 53%, 5%);
+    --sidebar-hover-color: #a0aecd;
+    --sidebar-text-color: #e1e2e2;
+    --sidebar-item-hover: #F0F0F0;   
+}
+
+/* Custom Scrollbar Styles */
+
+/* For Webkit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+    width: 12px; /* Width of the scrollbar */
+    height: 12px; /* Height of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background-color); /* Background of the scrollbar track */
+    border-radius: 6px; /* Rounded corners for the track */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--description-color); /* Color of the scrollbar thumb */
+    border-radius: 6px; /* Rounded corners for the thumb */
+    border: 3px solid var(--background-color); /* Space between the thumb and track */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--secondary-color); /* Color of the thumb on hover */
+}
+
+/* For Firefox */
+* {
+    scrollbar-width: thin; /* Makes the scrollbar thin */
+    scrollbar-color: var(--description-color) var(--background-color); /* Thumb color and track color */
+}
+
+*::-webkit-scrollbar {
+    border-radius: 6px; /* Rounded corners for the scrollbar */
+}
+
+*::-webkit-scrollbar-thumb {
+    border-radius: 6px; /* Rounded corners for the thumb */
+}
+
+*::-webkit-scrollbar-track {
+    border-radius: 6px; /* Rounded corners for the track */
+}
+
+
+nav {
+    background-color: var(--primary-color);
+    color: var(--sidebar-text-color);
+    position: sticky;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 15rem;
+    padding: 1rem 0.625rem;
+    display: flex;
+    flex-direction: column;
+    transition: width 0.1s ease-in-out;
+}
+
+main {
+    flex-grow: 1;
+}
+
+/* sidebar.css */
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Ensure sidebar takes full height */
+}
+
+.sidebar .header {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    height: 6rem; 
+    padding-bottom: 1rem;
+}
+
+.sidebar .header .brand {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 0.5rem;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.sidebar .header .brand .logo {
+    max-height: 4rem;
+    width: auto;
+    object-fit: contain;
+}
+
+.sidebar .main {
+    padding: 0.5rem 0;
+    border-top: 1px solid var(--sidebar-text-color);
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+}
+
+.sidebar li {
+    color: var(--secondary-color);
+}
+
+.sidebar li svg {
+    stroke: var(--sidebar-text-color);
+    width: 1.95rem;
+    height: 1.95rem;
+}
+
+.sidebar li a {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    margin: 0.5rem 0;
+    color: var(--sidebar-text-color);
+    font-size: 1.25rem;
+    height: 3.5rem;
+    border-radius: 0.425rem;
+    text-decoration: none;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.sidebar li a img {
+    height: 2.125rem;
+    width: 2.125rem;
+}
+
+.sidebar li a:hover {
+    background-color: var(--sidebar-item-hover);
+    color: var(--primary-color);
+}
+
+.sidebar li a:hover svg {
+    stroke: var(--primary-color);
+}
+
+.sidebar .label {
+    margin-left: 1.575rem;
+    text-transform: uppercase;
+}
+
+.sidebar .footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0.5rem;
+    margin-top: auto;
+    border-top: 1px solid var(--sidebar-text-color);
+    text-align: center;
+}
+
+.sidebar .footer button {
+    border-radius: 1rem;
+    outline: none;
+    margin: 0 auto;
+    min-height: 2.612rem;
+    font-weight: 800;
+    border: 1.5px solid var(--sidebar-text-color);
+    padding: 0.5rem 0.75rem;
+    background-color: var(--sidebar-text-color);
+    transition: all 0.2s ease-in-out;
+}
+
+.sidebar .footer button:hover {
+    background-color: var(--primary-color);
+    color: var(--sidebar-item-hover);
+}
+
+/* components.css */
+
+.flexcontainer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.flexcontainer .header {
+    padding: 1rem;
+}
+
+.flexcontainer .main {
+    flex-grow: 1;
+    padding: 1rem;
+}
+
+.flexcontainer .footer {
+    padding: 1rem;
+    margin-top: auto;
+}
+
+.sectionheader {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Softer shadow for modern look */
+    overflow: hidden;
+    background-color: var(--background-color); /* Assuming you want it to blend with the page background */
+    border-radius: 4px; /* Rounded corners for a modern feel */
+    margin-bottom: 20px; /* Space after the header */
+}
+
+.sectionheader::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--sidebar-hover-color) 25%, transparent 25%, transparent 50%, var(--sidebar-hover-color) 50%, var(--sidebar-hover-color) 75%, transparent 75%, transparent);
+    background-size: 20px 20px;
+    opacity: 0.1; /* Reduced opacity for subtlety */
+    z-index: 1;
+}
+
+.sectionheader .icon {
+    margin-right: 1rem;
+}
+
+
+.sectionheader .textcontent {
+    margin: 0;
+}
+
+.title {
+    font-size: 2.0rem;
+    letter-spacing: 1px;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    font-size: 1.25rem;
+    margin: 0; 
+    color: var(--description-color);
+}
+
+
+.sectionfooter {
+    width: 100%;
+    display: flex;
+    flex-direction: row; /* Ensure it's set to row */
+    align-items: center; /* Align items vertically in the center */
+    justify-content: space-between;
+    background-color: var(--background-color);
+    padding: 20px;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px 8px 0 0;
+    margin: 20px 0 0 0;
+}
+
+.sectionfooter .left, .sectionfooter .right {
+    flex: 1; /* Equal flex grow for both sides */
+    padding: 10px;
+    min-width: 0; /* Prevents overflow by allowing content to shrink */
+}
+
+.sectionfooter .left {
+    border-right: 1px solid var(--description-color);
+    /* Ensure text doesn't wrap and cause row behavior */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sectionfooter .right {
+    text-align: right;
+    display: flex;
+    justify-content: flex-end; /* Aligns the button container to the end */
+}
+
+.bg-grey {
+    background-color: #e1e2e2;
+}
+
+.icon48 svg,img {
+    width: 48px; /* Nuova larghezza dell'icona */
+    height: 48px; /* Nuova altezza dell'icona */
+}
+
+.flexsib {
+    display: flex;
+    justify-content: space-between;
+}
+
+.outlinedcontainer {
+    position: relative;
+    padding: 1rem;
+    border: 1px solid var(--description-color); /* Linea più sottile */
+    border-radius: 4px;
+    margin-right: 10px; /* Spazio tra le due aree */
+}
+
+.outlinedcontainer:last-child {
+    margin-right: 0; /* Rimuove il margine destro dall'ultima sezione */
+}
+
+.borderoutline::before {
+    content: attr(data-text);
+    position: absolute;
+    top: -10px;
+    left: 10px; /* Allineamento a sinistra */
+    background-color: var(--background-color);
+    padding: 0 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.bgcolor {
+    background-color: var(--background-color);
+}
+
+/* inputs.css */
+
+.default-button {
+    display: flex;
+    justify-content: flex-end; /* Align buttons to the right */
+    gap: 10px; /* Space between buttons */
+}
+
+.default-button .login-button, .save-button, .default-button .reset-button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    letter-spacing: 1px;
+    font-weight: bold;
+    background-color: var(--secondary-color);
+    color: var(--background-color);
+    box-shadow: 0 2px 4px var(--primary-color);
+    text-transform: uppercase;
+}
+
+/* The gleam effect */
+.default-button .login-button::after, .save-button::after, .default-button .reset-button::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -100%;
+    width: 50%;
+    height: 200%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.5), transparent);
+    transform: rotate(45deg);
+    transition: all 0.5s ease;
+}
+
+/* Hover effect */
+.default-button .login-button:hover::after, .save-button:hover::after, .default-button .reset-button:hover::after {
+    left: 150%; /* Moves the gleam from left to right */
+}
+
+/* Press effect */
+.default-button .login-button:active, .save-button:active, .default-button .reset-button:active {
+    transform: scale(0.98);
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+/* Reset button specific color */
+.default-button .reset-button {
+    background-color: #e74c3c;
+}
+
+/* Icons before buttons */
+.default-button .save-button::before {
+    content: '\2713'; /* Unicode checkmark for save */
+    margin-right: 8px;
+}
+
+.default-button .reset-button::before {
+    content: '\21BB'; /* Unicode for reset/refresh symbol */
+    margin-right: 8px;
+}
+
+.default-button .login-button::before {
+    content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffffff" width="24px" height="24px"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm0 12H6V10h12v10z"/></svg>');
+    margin-right: 8px;
+    vertical-align: middle; /* Aligns the SVG with the text baseline */
+}
+
+
+.icon-container {
+    display: flex;
+    gap: 10px;
+}
+
+.link-icon {
+    background-color: transparent;
+    border: 2px solid var(--primary-color);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    border-radius: 5px;
+    text-decoration: none;
+    position: relative;
+}
+
+.link-icon svg {
+    fill: var(--primary-color);
+    width: 20px;
+    height: 20px;
+    margin: 0; /* Reset any margin */
+}
+
+.link-icon:hover {
+    background-color: var(--primary-color);
+    transform: scale(1.05);
+}
+
+/* New rule to invert SVG color on hover */
+.link-icon:hover svg {
+    filter: invert(100%);
+}
+
+.link-icon:active {
+    transform: scale(0.95);
+    background-color: #0a0e13; /* A darker shade for active state */
+}
+

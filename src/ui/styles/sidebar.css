@@ -1,0 +1,78 @@
+/* Stili per la sidebar */
+.sidebar {
+    width: 250px;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    transition: width 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Stile per il header della sidebar */
+.sidebar-header {
+    padding: 10px;
+    text-align: center;
+}
+
+.sidebar-header img {
+    max-width: 100%;
+    max-height: 96px;
+    width: auto;
+    height: auto;
+}
+
+/* Lista del menu */
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    flex-grow: 1;
+}
+
+.sidebar ul li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.sidebar ul li:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+/* Stile per il footer della sidebar */
+.sidebar-footer {
+    padding: 10px;
+    text-align: center;
+}
+
+.sidebar-footer button {
+    padding: 8px 16px;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.sidebar-footer button:hover {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+/* Sidebar collassata */
+.sidebar.collapsed {
+    width: 80px;
+}
+
+.sidebar.collapsed ul li {
+    text-align: center;
+    padding: 5px;
+}
+
+.sidebar.collapsed h2 {
+    display: none;
+}
+
+.sidebar.collapsed .sidebar-header img {
+    display: none;
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>S&S Password Manager</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Unico foglio di stile per ora -->
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="/eel.js"></script>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="sidebar">
+            <div class="header">
+                <a href="#" class="brand">
+                    <img src="./assets/banner.png" alt="brand logo" class="logo">
+                </a>
+            </div>
+            <div class="main">
+                <ul>
+                    <li>
+                        <a href="#home" title="Home" class="tooltip" onclick='load_page_content("home.html")'>
+                            <div data-image-path="svgs/home.svg"></div>
+                            <span class="label">HOME</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#passwords" title="Password" onclick='load_page_content("passwords.html")'>
+                            <div data-image-path="svgs/passwords.svg"></div>
+                            <span class="label">PASSWORDS</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#backupkeys" title="Backup Keys" onclick='load_page_content("backupkeys.html")'>
+                            <div data-image-path="svgs/keys.svg"></div>
+                            <span class="label">Backup Keys</span>
+                        </a>
+                    </li>   
+                </ul>
+            </div>
+        </div>
+        <div class="footer">
+            <ul>
+                <li>
+                    <a href="#settings" title="settings" onclick='load_page_content("settings.html")'>
+                        <div data-image-path="svgs/settings.svg"></div>
+                        <span class="label">SETTINGS</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <main id="content" >
+        
+    </main>
+    <script src="scripts.js"></script> <!-- Script unificato -->
+</body>
+
+</html>

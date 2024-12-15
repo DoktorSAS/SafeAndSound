@@ -1,0 +1,262 @@
+<div id="home" class="flexcontainer bgcolor">
+    <div class="header sectionheader" style="max-height: 6rem;">
+        <div class="icon icon48" data-image-path="svgs/home.svg"></div>
+        <div class="textcontent">
+            <h1 class="title" data-lang-id="home.title">Home</h1>
+            <p class="subtitle" data-lang-id="home.subtitle">Insert your password, passcode or image used for decryption.</p>
+        </div>
+    </div>
+    <div class="main flexsib login-container"
+        style="max-height: calc(100vh - 12rem);display: flex; justify-content: center; align-items: center;">
+        <div style="min-width: 70%;min-height: 90%;position: relative;">
+            <div id="passwordInput" class="card-input-container">
+                <div class="card-input-header">
+                    <img alt="banner" src="../assets/banner.png">
+                </div>
+                <div class="card-input-main">
+                    <h2 style="padding-top: 0.5rem;" class="card-input-main-title">Password</h2>
+                    <p class="card-input-main-subtitle" data-lang-id="home.password_description">Enter your password below</p>
+                </div>
+                <div class="card-input-footer password-container">
+                    <input type="password" id="password" placeholder="Enter password"
+                        style="padding: 0.5rem;border-radius: 4px;" required>
+                </div>
+            </div>
+
+            <div id="passcodeInput" class="card-input-container">
+                <div class="card-input-header">
+                    <img alt="banner" src="../assets/banner.png">
+                </div>
+                <div style="padding: 3rem;" class="card-input-main passcode-input">
+                    <input type="text" maxlength="1" class="passcode" oninput="moveToNext(this)">
+                    <input type="text" maxlength="1" class="passcode" oninput="moveToNext(this)">
+                    <input type="text" maxlength="1" class="passcode" oninput="moveToNext(this)"> -
+                    <input type="text" maxlength="1" class="passcode" oninput="moveToNext(this)">
+                    <input type="text" maxlength="1" class="passcode" oninput="moveToNext(this)">
+                    <input type="text" maxlength="1" class="passcode" oninput="moveToNext(this)">
+                </div>
+                <!-- Example with 6 characters -->
+                <div class="card-input-footer" style="text-align: center;">
+                    <p class="card-input-main-subtitle" data-lang-id="home.passcode_description">Enter your passcode above</p>
+                    <h2 class="card-input-main-title" style="margin-top: -1rem">PASSCODE</h2>
+                </div>
+            </div>
+
+            <div id="dropzoneInput" class="card-input-container" ondrop="handleDrop(event)"
+                ondragover="allowDrop(event)">
+                <div class="card-input-header">
+                    <img alt="banner" src="../assets/banner.png">
+                </div>
+                <div class="card-input-main dropzone">
+                    <h2 class="card-input-main-title">Dropzone</h2>
+                    <p class="card-input-main-subtitle" data-lang-id="home.dropzone_description">Drop a file here or click to browse</p>
+                    <input type="file" id="fileInput" style="display: none;" onchange="handleFileSelect(event)">
+                    <label for="fileInput">
+                        <!-- Placeholder for folder SVG -->
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                            <!-- Folder Icon SVG content -->
+                        </svg>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer sectionfooter" style="max-height: 6rem;">
+        <div class="left">
+            <div class="icon-container">
+                <!-- Social media links remain unchanged -->
+            </div>
+        </div>
+        <div class="right">
+            <div class="default-button">
+                <button class="login-button" data-lang-id="home.decrypt_button">DECRYPT</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    :root {
+        --error: #e74c3c;
+        --border-color: #bdc3c7;
+        --text-color: #34495e;
+        --card-input-bg: #ecf0f1;
+        --focus-shadow: #2980b9;
+    }
+
+    .login-container>div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+        /* Added padding for better spacing */
+    }
+
+    .card-input-container {
+        background: var(--background-color);
+        border-radius: 8px;
+        /* Rounded corners for modern look */
+        min-width: 70%;
+        min-height: 80%;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        /* Softer shadow */
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1.5rem;
+        /* Space between input containers */
+    }
+
+    .card-input-header {
+        position: relative;
+        width: 100%;
+        height: 96px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: var(--primary-color);
+        /* Header background color */
+        color: var(--description-color);
+        /* Text color for header */
+    }
+
+    .card-input-header img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+
+    .card-input-main {
+        text-align: center;
+        border-top: 1px solid var(--sidebar-hover-color);
+        border-bottom: 1px solid var(--sidebar-hover-color);
+        padding: 1rem;
+        /* Added padding for better spacing */
+    }
+
+    .card-input-main-title {
+        margin-top: 0.1rem;
+        color: var(--primary-color);
+        font-size: 1.8em;
+        /* Increased font size for better visibility */
+        font-weight: 600;
+        z-index: 999;
+    }
+
+    .card-input-main-subtitle {
+        color: var(--description-color);
+        margin-bottom: 1rem;
+        font-size: 1em;
+        opacity: 0.8;
+        z-index: 999;
+    }
+
+    .card-input-footer {
+        padding: 0.5rem;
+        box-shadow: 0 0px 0.5rem var(--sidebar-hover-color);
+    }
+
+    .password-container {
+        padding: 1rem 0.8rem;
+    }
+
+    #password,
+    .passcode {
+        padding: 0.75rem;
+        /* Increased padding for input fields */
+        border: 1px solid var(--border-color);
+        border-radius: 0.5rem;
+        background: var(--card-input-bg);
+        color: var(--primary-color);
+        width: 100%;
+        box-sizing: border-box;
+        transition: all 0.3s ease;
+        font-size: 1em;
+    }
+
+    #password:focus,
+    .passcode:focus {
+        color: var(--primary-color);
+        border-color: var(--secondary-color);
+        box-shadow: 0 0 0.5rem var(--secondary-color);
+    }
+
+    .passcode {
+        text-align: center;
+        width: 3rem;
+        /* Increased width for better visibility */
+        height: 3.5rem;
+        /* Adjusted height */
+        font-size: 1.5em;
+        /* Increased font size for better visibility */
+    }
+
+    .passcode-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        /* Added gap for spacing */
+    }
+
+    .dropzone {
+        border: 0.3rem dashed var(--description-color);
+        border-radius: 4px;
+        padding: 30px;
+        margin: 2rem;
+        background: var(--card-input-bg);
+        transition: all 0.3s ease;
+        text-align: center;
+        /* Centered text in dropzone */
+    }
+
+    .dropzone:hover,
+    .dropzone:focus {
+        background-color: #e1e1e1;
+        /* Lighten background on hover */
+    }
+
+    .dropzone svg {
+        fill: var(--focus-shadow);
+        width: 60px;
+        height: 60px;
+    }
+
+    .error-message {
+        font-style: italic;
+        color: var(--error);
+    }
+
+    ::placeholder {
+        color: var(--border-color);
+        opacity: 0.7;
+    }
+
+    input,
+    .dropzone {
+        outline: none;
+    }
+
+    button,
+    input[type="submit"],
+    .dropzone {
+        cursor: pointer;
+    }
+
+    @media (max-width: 500px) {
+        .card-input-container {
+            padding: 20px;
+            /* Adjusted padding for smaller screens */
+        }
+    }
+</style>
