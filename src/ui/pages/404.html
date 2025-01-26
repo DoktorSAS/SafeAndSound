@@ -1,0 +1,59 @@
+<div class="container">
+    <div class="error-message">
+        <h1>404</h1>
+        <h2>Section Not Found</h2>
+        <p>Sorry, this section is currently in development.</p>
+        <a href="/" class="home-button">Go to Home</a>
+    </div>
+</div>
+<style>
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh; /* Full viewport height */
+        background-color: var(--background-color);
+        text-align: center;
+    }
+
+    .error-message {
+        background-color: var(--card-background-color);
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        max-width: 400px;
+        margin: 20px;
+    }
+
+    h1 {
+        font-size: 80px;
+        color: var(--primary-color);
+    }
+
+    h2 {
+        font-size: 24px;
+        margin: 20px 0;
+        color: var(--description-color);
+    }
+
+    p {
+        font-size: 16px;
+        margin-bottom: 30px;
+        color: var(--primary-color);
+    }
+
+    .home-button {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        color: var(--button-text-color);
+        background-color: var(--button-bg-color);
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .home-button:hover {
+        background-color: var(--sidebar-hover-color);
+    }
+</style>

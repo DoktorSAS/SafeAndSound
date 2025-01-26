@@ -68,9 +68,7 @@
             </div>
         </div>
         <div class="right">
-            <div class="default-button">
-                <button class="login-button" data-lang-id="home.decrypt_button">DECRYPT</button>
-            </div>
+            <button class="default-button login-button" data-lang-id="home.decrypt_button">DECRYPT</button>
         </div>
     </div>
 </div>
@@ -90,38 +88,34 @@
         justify-content: center;
         align-items: center;
         padding: 1rem;
-        /* Added padding for better spacing */
     }
 
     .card-input-container {
         background: var(--background-color);
         border-radius: 8px;
-        /* Rounded corners for modern look */
         min-width: 70%;
         min-height: 80%;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        /* Softer shadow */
         align-items: center;
         justify-content: center;
         position: relative;
         display: flex;
         flex-direction: column;
         margin-bottom: 1.5rem;
-        /* Space between input containers */
     }
 
     .card-input-header {
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
         position: relative;
         width: 100%;
-        height: 96px;
+        height: 106px;
         overflow: hidden;
         display: flex;
         justify-content: center;
         align-items: center;
         background: var(--primary-color);
-        /* Header background color */
         color: var(--description-color);
-        /* Text color for header */
     }
 
     .card-input-header img {
@@ -141,14 +135,12 @@
         border-top: 1px solid var(--sidebar-hover-color);
         border-bottom: 1px solid var(--sidebar-hover-color);
         padding: 1rem;
-        /* Added padding for better spacing */
     }
 
     .card-input-main-title {
         margin-top: 0.1rem;
         color: var(--primary-color);
         font-size: 1.8em;
-        /* Increased font size for better visibility */
         font-weight: 600;
         z-index: 999;
     }
@@ -168,6 +160,8 @@
 
     .password-container {
         padding: 1rem 0.8rem;
+        border-bottom-right-radius: 6px;
+        border-bottom-left-radius: 6px;
     }
 
     #password,
@@ -194,11 +188,8 @@
     .passcode {
         text-align: center;
         width: 3rem;
-        /* Increased width for better visibility */
         height: 3.5rem;
-        /* Adjusted height */
         font-size: 1.5em;
-        /* Increased font size for better visibility */
     }
 
     .passcode-container {
@@ -206,24 +197,21 @@
         display: flex;
         justify-content: center;
         gap: 8px;
-        /* Added gap for spacing */
     }
 
     .dropzone {
-        border: 0.3rem dashed var(--description-color);
+        border: 0.2rem dashed var(--description-color);
         border-radius: 4px;
-        padding: 30px;
-        margin: 2rem;
-        background: var(--card-input-bg);
+        padding: 2rem 0rem 0rem 0rem;
+        margin: 1.5rem;
+        background: var(--background-color);
         transition: all 0.3s ease;
         text-align: center;
-        /* Centered text in dropzone */
     }
 
     .dropzone:hover,
     .dropzone:focus {
-        background-color: #e1e1e1;
-        /* Lighten background on hover */
+        background-color: var(--sidebar-item-hover);
     }
 
     .dropzone svg {
@@ -256,7 +244,6 @@
     @media (max-width: 500px) {
         .card-input-container {
             padding: 20px;
-            /* Adjusted padding for smaller screens */
         }
     }
 </style>

@@ -114,6 +114,7 @@ async function load_page_content(page) {
             const content = document.getElementById("content");
             content.innerHTML = updatedContent;
             await loadImagesFromDataAttributes()
+            /*while(!imagesLoaded){}*/
             switch (page) {
                 case "settings.html":
                     eel.configuration_get('pubkey_fpath')(function (value) {
@@ -238,7 +239,9 @@ function parseINI(data) {
 }
 
 /* images/svg/icon loader */
+let imagesLoaded = false
 async function loadImagesFromDataAttributes() {
+    imagesLoaded = false
     // Select all elements with the data-image-path attribute
     const elements = document.querySelectorAll('*[data-image-path]');
 
@@ -285,6 +288,7 @@ async function loadImagesFromDataAttributes() {
             }
         }
     }
+    imagesLoaded = true
 }
 
 document.addEventListener('DOMContentLoaded', function () {

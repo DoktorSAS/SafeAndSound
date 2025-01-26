@@ -102,7 +102,7 @@ class GUI:
                 full_path = os.path.join(base_path, 'pages', sanitized_page)
                 
                 if not os.path.exists(full_path):
-                    return "<h1>Page Not Found</h1>"
+                    return get_page_content("404.html")  # Fallback to 404 page if not found
                 
                 with open(full_path, 'r', encoding='utf-8') as file:
                     return file.read()

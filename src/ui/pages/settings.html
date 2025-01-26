@@ -8,7 +8,7 @@
     </div>
 
     <div class="main flexsib" style="max-height: calc(100vh - 12rem);">
-        <div style="width: 70%;" class="outlinedcontainer borderoutline" data-text="ENCRYPTION KEYS AND FOLDERS">
+        <div style="width: 80%;" class="outlinedcontainer borderoutline" data-text="ENCRYPTION KEYS AND FOLDERS">
             <div style="max-height: calc(100vh - 16rem);overflow-y: auto;">
                 <div class="settings">
                     <div class="option">
@@ -107,14 +107,14 @@
                 </div>
             </div>
         </div>
-        <div style="width: 28%;" class="outlinedcontainer borderoutline" data-text="">
+        <div style="width: 18%;" class="outlinedcontainer borderoutline" data-text="">
             <p>HELLO!</p>
         </div>
     </div>
 
     <div class="footer sectionfooter" style="max-height: 6rem;">
         <div class="left">
-            <div class="icon-container">
+            <div class="icons-inline-container">
                 <a target="_blank" rel="noopener noreferrer" href="https://github.com/DoktorSAS" class="link-icon"
                     title="GitHub" data-image-path="svgs/socials/github.svg">
                 </a>
@@ -131,9 +131,9 @@
             </div>
         </div>
         <div class="right">
-            <div class="default-button">
-                <button data-lang-id="settings.reset_button" class="reset-button">Reset</button>
-                <button data-lang-id="settings.save_button" class="save-button">Save</button>
+            <div class="buttons-inline-container">
+                <button data-lang-id="settings.reset_button" class="default-button red-button reset-button">Reset</button>
+                <button data-lang-id="settings.save_button" class="default-button save-button">Save</button>
             </div>
         </div>
     </div>
@@ -147,6 +147,7 @@
         border-radius: 8px;
         width: 100%;
         margin-bottom: 10px;
+        margin-top: 10px;
         padding-right: 15px;
     }
 
@@ -158,14 +159,16 @@
         border-radius: 4px;
         position: relative;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
-        border: 1px solid var(--primary-color-outline);
+        border: 0.2px solid var(--primary-color);
         border-radius: 4px;
         box-shadow: 0 2px 4px var(--primary-color-outline);
     }
-
+    
     .settings .option:hover {
-        /*transform: translateY(-2px);*/
-        box-shadow: 0 6px 8px var(--primary-color-outline);
+        transform: translateY(-2px);
+        /*box-shadow: var(--primary-color-outline) 0px 2px 4px;*/
+        /*box-shadow: 0 6px 8px var(--primary-color-outline);*/
+        box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
     }
 
     .settings .option-text {
