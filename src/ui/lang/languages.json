@@ -1,0 +1,42 @@
+[
+    {
+        "id": "ar",
+        "label": "AR - العربية"
+    },
+    {
+        "id": "de",
+        "label": "DE - Deutsch"
+    },
+    {
+        "id": "en",
+        "label": "EN - English"
+    },
+    {
+        "id": "es",
+        "label": "ES - Español"
+    },
+    {
+        "id": "fr",
+        "label": "FR - Français"
+    },
+    {
+        "id": "it",
+        "label": "IT - Italiano"
+    },
+    {
+        "id": "ja",
+        "label": "JA - 日本語"
+    },
+    {
+        "id": "pt",
+        "label": "PT - Português"
+    },
+    {
+        "id": "ru",
+        "label": "RU - Русский"
+    },
+    {
+        "id": "zh",
+        "label": "ZH - 简体中文"
+    }
+]

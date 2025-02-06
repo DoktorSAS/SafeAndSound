@@ -1,0 +1,434 @@
+<div id="home" class="flexcontainer bgcolor" style="position: relative;">
+    <div class="header sectionheader" style="max-height: 6rem;">
+        <div class="icon icon48" data-image-path="svgs/passwords.svg"></div>
+        <div class="textcontent">
+            <h1 class="title" data-lang-id="plaintexts.title">Passwords</h1>
+            <p class="subtitle" data-lang-id="plaintexts.subtitle">Here you can find all your passwords</p>
+        </div>
+        <div class="search-container">
+            <div class="search-bar">
+                <input data-lang-placeholder-id="dict.search" id="search-bar" type="text" placeholder="Search...">
+                <button class="search-btn" data-image-path="svgs/search.svg"> </button>
+            </div>
+            <a onclick="openCredentialsModal()" style="z-index: 998;" target="_blank" rel="noopener noreferrer"
+                class="link-icon-solid" title="Add" data-image-path="svgs/add.svg"></a>
+        </div>
+    </div>
+    <div class="main flexsib"
+        style="max-height: calc(100vh - 12rem);display: flex; justify-content: center; align-items: center;">
+        <!-- credentialsModal for adding new credentials -->
+        <div id="credentialsModal" class="credentialsModal" style="display:none;z-index: 999;">
+            <div class="credentialsModal-content">
+                <div class="credentialsModal-header">
+                    <div class="credentials-title-container">
+                        <span class="credentials-title-icon" data-image-path="svgs/passwords.svg"></span>
+                        <span data-lang-id="credentials.plain_text" class="credentials-title">Add New Password</span>
+                    </div>
+                    <div class="credentialsModal-header-actions">
+                        <div class="icons-inline-container">
+                            <a class="link-icon-solid" title="Remove" data-image-path="svgs/remove.svg" target="_blank"
+                                rel="noopener noreferrer" style="z-index: 999;" onclick="deleteCredential()"></a>
+                            <a class="link-icon-solid" title="Edit" data-image-path="svgs/close.svg" target="_blank"
+                                rel="noopener noreferrer" style="z-index: 999;" onclick="closeCredentialsModal()"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-area">
+                    <div class="content-row" style="padding-top: 10px;">
+                        <label data-lang-id="credentials.service" for="service" class="data-label">SERVICE:</label>
+                        <input type="text" id="service" name="service" required>
+                    </div>
+                    <div class="content-row">
+                        <label data-lang-id="credentials.email_or_username" for="email_or_username" class="data-label">EMAIL/USERNAME:</label>
+                        <input type="text" id="email_or_username" name="email_or_username" required>
+                    </div>
+                    <div class="content-row">
+                        <label data-lang-id="credentials.plain_text" for="long_text" class="data-label">LONG TEXT:</label>
+                        <textarea id="long_text" name="long_text" rows="4" required></textarea>
+                    </div>
+                </div>
+                <div class="credentialsModal-footer">
+                        <button type="button" data-lang-id="credentials.add_button" class="default-button save-button" onclick="submitCredential()">Add</button>
+                </div>
+            </div>
+        </div>
+        <div class="scrollable-list">
+            <div class="list-item">
+                <div class="list-header" onclick="toggleDetails(this)">
+                    <span class="item-number">1</span>
+                    <span class="item-title">Credentials</span>
+                    <div class="item-actions">
+                        <div class="icons-inline-container">
+                            <a class="link-icon-solid" title="Edit" data-image-path="svgs/edit.svg" target="_blank"
+                                rel="noopener noreferrer"></a>
+                            <a class="link-icon-solid" title="Remove" data-image-path="svgs/remove.svg" target="_blank"
+                                rel="noopener noreferrer"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-details">
+                    <div class="email-container">
+                        <label for="email" class="data-label">Email/Username:</label>
+                        <div class="email-text">
+                            <span class="email">user@example.com</span>
+                            <button class="copy-button" onclick="copyToClipboard('user@example.com')"
+                                data-image-path="svgs/copy.svg"></button>
+                        </div>
+                    </div>
+                    <div class="password-container">
+                        <label for="password" class="data-label">Password:</label>
+                        <div class="password-text">
+                            <span
+                                class="password">password123password123password123password123password123password123password123password123password123password123password123password123password123password123password123password123password123password123password123password123password123password123password123</span>
+                            <button class="copy-button" onclick="copyToClipboard('password123')"
+                                data-image-path="svgs/copy.svg"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Repeat list-item for more items -->
+        </div>
+    </div>
+    <div class="footer sectionfooter" style="max-height: 6rem;">
+        <div class="left">
+            <div class="icons-inline-container">
+                <a target="_blank" rel="noopener noreferrer" href="https://github.com/DoktorSAS" class="link-icon"
+                    title="GitHub" data-image-path="svgs/socials/github.svg">
+                </a>
+                <a target="_blank" rel="noopener noreferrer" href="https://www.patreon.com/DoktorSAS" class="link-icon"
+                    title="Patreon" data-image-path="svgs/socials/patreon.svg">
+
+                </a>
+                <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/@DoktorSAS" class="link-icon"
+                    title="YouTube" data-image-path="svgs/socials/youtube.svg">
+                </a>
+                <a target="_blank" rel="noopener noreferrer" href="https://x.com/DoktorSAS" class="link-icon"
+                    title="X/Twitter" data-image-path="svgs/socials/x.svg">
+                </a>
+            </div>
+        </div>
+        <div class="right">
+
+        </div>
+    </div>
+</div>
+
+<style>
+    .textcontent {
+        flex: 1;
+    }
+
+    .search-container {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        /* Space between the search bar and the add button */
+    }
+
+    .search-bar {
+        display: flex;
+        align-items: center;
+        z-index: 999;
+        width: 300px;
+        background-color: var(--background-color);
+        border: 1px solid var(--primary-color-outline);
+        border-radius: 6px;
+        box-shadow: 0 2px 4px var(--primary-color-outline);
+        padding: 5px;
+    }
+
+    .search-bar input {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        border-radius: 6px 0 0 6px;
+        font-size: 1rem;
+        outline: none;
+        background-color: var(--background-color);
+    }
+
+    .search-bar .search-btn {
+        background: none;
+        border: none;
+        padding: 0 10px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .search-bar .search-btn svg {
+        fill: var(--primary-color);
+        transition: transform 0.1s ease-in-out;
+    }
+
+    .search-bar .search-btn:hover svg {
+        transform: scale(1.1);
+    }
+
+    .search-bar .search-btn:active svg {
+        transform: scale(0.9);
+    }
+
+    /* scrollable-list */
+    .scrollable-list {
+        width: 90%;
+        margin: 20px auto;
+        overflow: auto;
+        height: 100%;
+    }
+
+    .list-item {
+        border: 1px solid var(--primary-color);
+        border-radius: 6px;
+        box-shadow: 0 2px 4px var(--primary-color);
+        padding: 6px;
+        background-color: var(--card-background-color);
+        max-width: calc(140vh);
+        margin: auto;
+    }
+
+    .list-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .list-header:hover {
+        background-color: var(--card-background-hover-color);
+    }
+
+    .item-number {
+        font-weight: bold;
+        margin-right: 20px;
+    }
+
+    .item-title {
+        flex-grow: 1;
+    }
+
+    .item-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .list-details {
+        display: none;
+        padding: 10px 20px;
+        border-top: 1px solid var(--primary-color-outline);
+    }
+
+    .service-info {}
+
+    .email-container,
+    .password-container {
+
+        display: flex;
+        flex-direction: column;
+        margin-top: 5px;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    .data-label {
+        font-size: 16px;
+        color: var(--primary-color);
+        margin-bottom: 5px;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-family: monospace;
+    }
+
+    .email-text,
+    .password-text {
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        border: 1px solid var(--primary-color);
+        border-radius: 4px;
+        padding: 10px;
+        font-family: monospace;
+        background-color: var(--background-color);
+
+    }
+
+    .email,
+    .password {
+        font-size: 14px;
+        color: var(--primary-color);
+        flex-grow: 1;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .copy-button {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        color: var(--primary-color);
+        margin-left: 5px;
+        transition: transform 0.2s ease;
+        vertical-align: middle;
+    }
+
+    .copy-button:hover {
+        transform: scale(1.2);
+    }
+
+    .copy-button:active {
+        transform: scale(0.9);
+    }
+
+    .copy-icon {
+        width: 24px;
+        height: 24px;
+        fill: var(--primary-color);
+    }
+
+    .copy-button:hover .copy-icon {
+        fill: var(--secondary-color);
+    }
+
+    .footer {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 15px;
+    }
+
+    .text-container {
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+    }
+
+    .text-area {
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+        overflow: auto;
+        border: 1px solid var(--primary-color);
+        border-radius: 4px;
+        padding: 5px;
+        min-height: 100px;
+    }
+
+    .text {
+        font-size: 14px;
+        color: var(--primary-color);
+        width: 100%;
+    }
+
+    /* credentialsModal styles */
+    .credentialsModal {
+        display: none;
+        position: absolute; 
+        z-index: 999;
+        height: 80%;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .credentialsModal-content {
+        background-color: var(--background-color);
+        margin: auto;
+        padding: 1rem;
+        border: 1px solid var(--primary-color-outline);
+        border-radius: 6px;
+        width: 100%;
+        max-width: 36rem;
+        box-shadow: 2px 2px 5px var(--primary-color);
+        font-family: monospace;
+    }
+
+    .credentialsModal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--primary-color-outline);
+        padding-bottom: 10px;
+    }
+
+    .credentialsModal-header .title {
+        font-size: 16px;
+        font-weight: bold;
+        color: var(--primary-color);
+    }
+
+    .credentialsModal-header .credentials-title-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .credentialsModal-header .credentials-title-icon {
+        width: 24px;
+        height: 24px;
+        margin-right: 10px;
+        background-size: contain;
+    }
+
+    .credentialsModal-header .credentials-title {
+        font-size: 16px;
+        font-weight: bold;
+        color: var(--primary-color);
+    }
+
+
+    .credentialsModal-header-actions {
+        display: flex;
+        align-items: center;
+    }
+
+    .content-row {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+
+    .data-label {
+        font-size: 14px;
+        color: var(--primary-color);
+        margin-bottom: 5px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .content-row input,
+    .content-row textarea {
+        padding: 10px;
+        border: 1px solid var(--primary-color-outline);
+        border-radius: 4px;
+        font-size: 16px;
+        font-family: monospace;
+        background-color: var(--background-color);
+        color: var(--primary-color);
+    }
+
+    .content-row textarea {
+        resize: vertical;
+        min-height: 60px;
+    }
+
+    .credentialsModal-footer {
+        text-align: right;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .add-button {
+        background-color: var(--button-bg-color);
+        color: var(--button-text-color);
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-family: monospace;
+        box-shadow: 0 2px 4px var(--button-shadow-color);
+    }
+</style>

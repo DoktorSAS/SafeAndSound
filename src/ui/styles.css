@@ -208,7 +208,6 @@ main {
 }
 
 /* components.css */
-
 .flexcontainer {
     display: flex;
     flex-direction: column;
@@ -234,11 +233,11 @@ main {
     align-items: center;
     padding: 20px;
     position: relative;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Softer shadow for modern look */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    background-color: var(--background-color); /* Assuming you want it to blend with the page background */
-    border-radius: 4px; /* Rounded corners for a modern feel */
-    margin-bottom: 20px; /* Space after the header */
+    background-color: var(--background-color);
+    border-radius: 4px;
+    margin-bottom: 20px;
 }
 
 .sectionheader::before {
@@ -250,14 +249,13 @@ main {
     height: 100%;
     background: linear-gradient(135deg, var(--sidebar-hover-color) 25%, transparent 25%, transparent 50%, var(--sidebar-hover-color) 50%, var(--sidebar-hover-color) 75%, transparent 75%, transparent);
     background-size: 20px 20px;
-    opacity: 0.1; /* Reduced opacity for subtlety */
+    opacity: 0.1;
     z-index: 1;
 }
 
 .sectionheader .icon {
     margin-right: 1rem;
 }
-
 
 .sectionheader .textcontent {
     margin: 0;
@@ -276,12 +274,11 @@ main {
     color: var(--description-color);
 }
 
-
 .sectionfooter {
     width: 100%;
     display: flex;
-    flex-direction: row; /* Ensure it's set to row */
-    align-items: center; /* Align items vertically in the center */
+    flex-direction: row;
+    align-items: center;
     justify-content: space-between;
     background-color: var(--background-color);
     padding: 20px;
@@ -291,14 +288,13 @@ main {
 }
 
 .sectionfooter .left, .sectionfooter .right {
-    flex: 1; /* Equal flex grow for both sides */
+    flex: 1; 
     padding: 10px;
-    min-width: 0; /* Prevents overflow by allowing content to shrink */
+    min-width: 0;
 }
 
 .sectionfooter .left {
     border-right: 1px solid var(--description-color);
-    /* Ensure text doesn't wrap and cause row behavior */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -307,7 +303,7 @@ main {
 .sectionfooter .right {
     text-align: right;
     display: flex;
-    justify-content: flex-end; /* Aligns the button container to the end */
+    justify-content: flex-end; 
 }
 
 .bg-grey {

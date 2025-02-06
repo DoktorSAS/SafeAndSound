@@ -2,10 +2,24 @@ import os
 import json
 
 import utils.Logger
+"""
+Example JSON file structure:
+[
+    {
 
+        "service": "www.exemple.com",
+        "email_or_username": "testuser",
+        "value": "123456789"
+    },
+    {
+        "service": "www.exemple.com",
+        "email_or_username": "testuser",
+        "value": "123-456-789"
+    }
+]
+"""
 class Credential:
-    def __init__(self, id, service, username, value):
-        self.id = id
+    def __init__(self, service, username, value):
         self.service = service
         self.username = username
         self.value = value
@@ -13,14 +27,12 @@ class Credential:
     def to_dict(self):
         """Convert the Credential object to a dictionary."""
         return {
-            'id': self.id,
             'service': self.service,
             'username': self.username,
             'value': self.value
         }
 
 class DataParser:
-
     Logger: utils.Logger = None
 
     def __init__(self, Logger: utils.Logger, file_path):
@@ -31,50 +43,54 @@ class DataParser:
     def ensure_file_integrity(self):
         """Ensure the JSON file exists and is a proper JSON file."""
         if not os.path.exists(self.file_path):
-            # Create the file with default value if it doesn't exist
             with open(self.file_path, 'w') as file:
-                json.dump([], file)  # Initialize with an empty list
+                json.dump([], file) 
             self.Logger.info(f"File '{self.file_path}' created with default value '[]'.")
         else:
-            # Check if the file is empty or not a valid JSON
             try:
                 with open(self.file_path, 'r') as file:
-                    json.load(file)  # Try to load the JSON to check its integrity
+                    json.load(file)
             except (json.JSONDecodeError, ValueError):
-                # If the file is not a valid JSON, reset it
                 with open(self.file_path, 'w') as file:
-                    json.dump([], file)  # Initialize with an empty list
+                    json.dump([], file)
                 self.Logger.error(f"File '{self.file_path}' was invalid and has been reset to default value '[]'.")
 
-    def append_credential(self, credential):
+    def append_credential(self, credential: Credential):
         """Append a new credential to the JSON file."""
         with open(self.file_path, 'r+') as file:
-            # Load existing data
             data = json.load(file)
-            # Assign an id based on the current length of the data
             credential.id = len(data)
-            # Append the new credential
             data.append(credential.to_dict())
-            # Move the cursor to the beginning of the file
             file.seek(0)
-            # Write the updated data back to the file
             json.dump(data, file, indent=4)
-            # Truncate the file to the new size
             file.truncate()
         self.Logger.info(f"Credential for '{credential.service}' added with ID {credential.id}.")
 
-    def remove_credential(self, service):
-        """Remove a credential by service name."""
+    def remove_credential(self, credential_id):
+        """Remove a credential by its ID."""
         with open(self.file_path, 'r+') as file:
-            # Load existing data
             data = json.load(file)
-            # Filter out the credential with the specified service
-            new_data = [cred for cred in data if cred['service'] != service]
-            # Move the cursor to the beginning of the file
+            new_data = [cred for cred in data if cred['id'] != int(credential_id)]
             file.seek(0)
-            # Write the updated data back to the file
             json.dump(new_data, file, indent=4)
-            # Truncate the file to the new size
             file.truncate()
-        self.Logger.info(f"Credential for '{service}' removed.")
+        
+        removed_credential = next((cred for cred in data if cred['id'] == int(credential_id)), None)
+        if removed_credential:
+            self.Logger.info(f"Credential for '{removed_credential['service']}' with ID {credential_id} removed.")
+        else:
+            self.Logger.warning(f"No credential found with ID {credential_id}.")
+
+    def get_all_credentials(self):
+        """Retrieve all credentials from the JSON file."""
+        with open(self.file_path, 'r') as file:
+            data = json.load(file)
+        return data
+
+    def get_credential_by_id(self, credential_id):
+        """Retrieve a credential by its ID."""
+        with open(self.file_path, 'r') as file:
+            data = json.load(file)
+        credential = next((cred for cred in data if cred['id'] == int(credential_id)), None)
+        return credential
 

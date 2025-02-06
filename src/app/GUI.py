@@ -13,14 +13,14 @@ import sys
 import Inputs as EELInputs
 
 class GUI:
-
     MODE: str = 'default'
     Logger: utils.Logger = None
     Config: utils.Config = None
     Inputs: EELInputs = None
     AuthToken: str = None
     AuthHash: str = None
-    DataParser: utils.DataParser = None
+    PlainTexts: utils.DataParser = None
+    Credentials: utils.DataParser = None
     
 
     def locate_chromium():
@@ -81,7 +81,24 @@ class GUI:
         """
         function used to handle all the python function exposed for the eel use
         """
+        @eel.expose
+        def add_credential(type: int, service: str, username: str, value: str):
+            if type == 0:
+                self.Credentials.append_credential(utils.DataParser.Credential(service, username, value))
+            else:
+                self.PlainTexts.append_credential(utils.DataParser.Credential(service, username, value))
+        
+        @eel.expose
+        def remove_credential(type: int, id: int):
+            if type == 0:
+                self.Credentials.remove_credential(id)
+            else:
+                self.PlainTexts.remove_credential(id)
 
+        @eel.expose
+        def get_password_data():
+            return
+        
         @eel.expose
         def get_page_content(page: str = "home.html"):
             """
@@ -129,10 +146,11 @@ class GUI:
                 self.Logger.error(f"File dialog error: {e}")
                 return None
 
-    def __init__(self, Logger: utils.Logger, Config: utils.Config, DataParser: utils.DataParser):
+    def __init__(self, Logger: utils.Logger, Config: utils.Config, PlainTexts: utils.DataParser, Credentials: utils.DataParser):
         self.Logger = Logger
         self.Config = Config
-        self.DataParser = DataParser
+        self.PlainTexts = PlainTexts
+        self.Credentials = Credentials
         self.Inputs = EELInputs.Inputs()
         
         self.__eel__()
@@ -143,11 +161,11 @@ class GUI:
             port=8080,
             size=(Config.APP['min_width_size'], Config.APP['min_hight_size']),
             block=True,
-            cmdline_args=['--disable-gpu']
+            cmdline_args=['--user-data-dir=c:\\temp', '--disable-gpu', '--disable-extensions', '--disable-plugins', '--disable-features=TranslateUI', '--disable-features=Translate', '--disable-features=TranslateLanguageDetection', '--disable-features=NetworkService', '--disable-features=CrossSiteDocumentBlockingIfIsolating', '--disable-features=CrossSiteDocumentBlockingAlways', '--disable-features=ImprovedCookieControls', '--disable-features=GlobalMediaControls', '--disable-features=IdleDetection']
         )
         
         try:
-            eel.start("index.html", mode='chrome', **eel_kwargs)
+            eel.start("index.html", mode='chrome', **eel_kwargs,app_mode=True)
             Logger.info("Started EEL application.")
         except EnvironmentError as e:
             Logger.error(f"Environment error when starting EEL: {e}")

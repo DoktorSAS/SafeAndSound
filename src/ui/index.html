@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <title>Safe&Sound Password Manager</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="buttons.css"> 
+    <link rel="stylesheet" href="buttons.css">
     <meta charset="UTF-8">
     <script type="text/javascript" src="/eel.js"></script>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <title>&#65279;</title>
 </head>
 <body>
-    <nav class="sidebar">
+    <nav id="sidebar" class="sidebar">
         <div class="sidebar">
             <div class="header">
                 <a href="#" class="brand">
@@ -22,21 +21,21 @@
                     <li>
                         <a href="#home" title="Home" class="tooltip" onclick='load_page_content("home.html")'>
                             <div data-image-path="svgs/home.svg"></div>
-                            <span class="label">HOME</span>
+                            <span data-lang-id="sidebar.home" class="label">HOME</span>
                         </a>
                     </li>
                     <li>
                         <a href="#passwords" title="Password" onclick='load_page_content("passwords.html")'>
                             <div data-image-path="svgs/passwords.svg"></div>
-                            <span class="label">PASSWORDS</span>
+                            <span data-lang-id="sidebar.passwords" class="label">PASSWORDS</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#backupkeys" title="Backup Keys" onclick='load_page_content("backupkeys.html")'>
-                            <div data-image-path="svgs/keys.svg"></div>
-                            <span class="label">Backup Keys</span>
+                        <a href="#backupkeys" title="Backup Keys" onclick='load_page_content("plaintexts.html")'>
+                            <div data-image-path="svgs/text.svg"></div>
+                            <span data-lang-id="sidebar.plain_text" class="label">PLAIN TEXT</span>
                         </a>
-                    </li>   
+                    </li>
                 </ul>
             </div>
         </div>
@@ -45,16 +44,59 @@
                 <li>
                     <a href="#settings" title="settings" onclick='load_page_content("settings.html")'>
                         <div data-image-path="svgs/settings.svg"></div>
-                        <span class="label">SETTINGS</span>
+                        <span data-lang-id="sidebar.settings" class="label">SETTINGS</span>
                     </a>
                 </li>
             </ul>
         </div>
     </nav>
-    <main id="content" >
-        
+    <main id="content">
+
     </main>
     <script src="scripts.js"></script> <!-- Script unificato -->
 </body>
+
+<script>
+    let once = false;
+    document.addEventListener('DOMContentLoaded', async () => {
+        // Load images for sidebar elements
+        if (!once) {
+            once = true;
+            const sidebarElements = document.querySelectorAll('nav.sidebar *[data-image-path]');
+            const loadPromises = Array.from(sidebarElements).map(async element => {
+                const imagePath = element.getAttribute('data-image-path');
+
+                if (imagePath) {
+                    if (imagePath.endsWith('.svg')) {
+                        try {
+                            const response = await fetch(imagePath);
+                            const svgContent = await response.text();
+                            // Directly set the innerHTML if the element is a container for the SVG
+                            element.innerHTML = svgContent;
+                        } catch (error) {
+                            console.error(`Error loading SVG image: ${error}`);
+                        }
+                    } else {
+                        // For non-SVG images, create and append an img tag
+                        return new Promise((resolve) => {
+                            const img = new Image();
+                            img.onload = () => {
+                                element.appendChild(img);
+                                resolve();
+                            };
+                            img.onerror = () => {
+                                console.error(`Error loading image: ${imagePath}`);
+                                resolve();
+                            };
+                            img.src = imagePath;
+                        });
+                    }
+                }
+            });
+
+            await Promise.all(loadPromises);
+        }
+    });
+</script>
 
 </html>

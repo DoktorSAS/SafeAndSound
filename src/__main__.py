@@ -37,8 +37,10 @@ if __name__ == "__main__":
                     file.write('')  # Create an empty file
                 Logger.info(f"File '{path}' created.")
 
-    create_file_if_not_exists(Configuration.APP["data_location"])
-    DataParser = Parser.DataParser(file_path=Configuration.APP["data_location"], Logger=Logger )
+    create_file_if_not_exists(Configuration.APP["credentials_location"])
+    Credentials = Parser.DataParser(file_path=Configuration.APP["credentials_location"], Logger=Logger )
+    create_file_if_not_exists(Configuration.APP["plaintexts_location"])
+    PlainTexts = Parser.DataParser(file_path=Configuration.APP["plaintexts_location"], Logger=Logger )
     # cmdline_args=['--incognito', '--no-experiments']
     
-    UserInterface.GUI(Logger, Configuration, DataParser)
+    UserInterface.GUI(Logger, Configuration, Credentials, PlainTexts)

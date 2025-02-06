@@ -14,7 +14,8 @@ class Config:
         "algorithm": "RSA",
         "auth_method": "P",
         "language": "en",
-        "data_location": "data/storage/credentials.json"
+        "credentials_location": "data/storage/credentials.json",
+        "plaintexts_location": "data/storage/plaintexts.json",
     }
 
     DEV:dict = {
