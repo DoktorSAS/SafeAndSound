@@ -3,6 +3,7 @@ import os
 import platform
 
 class Logger:
+    logger = None
     def __init__(self, mode: int, log_file_name: str):
         # Determine the correct path based on the OS
         if platform.system() == 'Windows':
@@ -44,6 +45,7 @@ class Logger:
         if not self.logger.handlers:  # Prevent adding multiple handlers
             self.logger.addHandler(file_handler)
 
+    
     def info(self, message: str):
         self.logger.info(message)
 

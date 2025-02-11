@@ -2,6 +2,8 @@ import os
 import json
 
 import utils.Logger
+from utils.Enum import CredentialsType
+
 """
 Example JSON file structure:
 [
@@ -28,7 +30,7 @@ class Credential:
         """Convert the Credential object to a dictionary."""
         return {
             'service': self.service,
-            'username': self.username,
+            'email_or_username': self.username,
             'value': self.value
         }
 
@@ -66,20 +68,24 @@ class DataParser:
             file.truncate()
         self.Logger.info(f"Credential for '{credential.service}' added with ID {credential.id}.")
 
-    def remove_credential(self, credential_id):
-        """Remove a credential by its ID."""
+    def remove_credential(self, index):
+        """Remove a credential by its index in the array."""
         with open(self.file_path, 'r+') as file:
             data = json.load(file)
-            new_data = [cred for cred in data if cred['id'] != int(credential_id)]
-            file.seek(0)
-            json.dump(new_data, file, indent=4)
-            file.truncate()
-        
-        removed_credential = next((cred for cred in data if cred['id'] == int(credential_id)), None)
-        if removed_credential:
-            self.Logger.info(f"Credential for '{removed_credential['service']}' with ID {credential_id} removed.")
-        else:
-            self.Logger.warning(f"No credential found with ID {credential_id}.")
+            # Check if the index is valid
+            if 0 <= index < len(data):
+                # Remove the credential at the given index
+                removed_credential = data.pop(index)
+                # Move the file pointer to the beginning of the file
+                file.seek(0)
+                # Write the updated data back to the file
+                json.dump(data, file, indent=4)
+                # Truncate the file to remove any leftover data
+                file.truncate()
+                
+                self.Logger.info(f"Credential for '{removed_credential['service']}' at index {index} removed.")
+            else:
+                self.Logger.warning(f"No credential found at index {index}.")
 
     def get_all_credentials(self):
         """Retrieve all credentials from the JSON file."""

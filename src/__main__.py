@@ -3,14 +3,15 @@ import os
 import utils.Config as Config
 import utils.Logger as Log
 import utils.DataParser as Parser
-import app.GUI as UserInterface
-
+import GUI as UserInterface
 
 if __name__ == "__main__":
     Configuration = Config.Config("config.ini")
     
     Logger = Log.Logger(mode=Configuration.DEV['debug_mode'], log_file_name=f'{Configuration.DEV['log_fname']}')
     Logger.info("Safe&Sound - Password Manager started")
+
+    Configuration.set_logger(Logger)
 
     def create_file_if_not_exists(path):
         """

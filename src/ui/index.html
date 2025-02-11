@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html translate="no">
 <head>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="buttons.css">
     <meta charset="UTF-8">
     <script type="text/javascript" src="/eel.js"></script>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <title>&#65279;</title>
+    <title>Safe & Sound</title>
+    <meta name="google" content="notranslate">
 </head>
 <body>
     <nav id="sidebar" class="sidebar">
@@ -61,6 +62,8 @@
     document.addEventListener('DOMContentLoaded', async () => {
         // Load images for sidebar elements
         if (!once) {
+
+            
             once = true;
             const sidebarElements = document.querySelectorAll('nav.sidebar *[data-image-path]');
             const loadPromises = Array.from(sidebarElements).map(async element => {

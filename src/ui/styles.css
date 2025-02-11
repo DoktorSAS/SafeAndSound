@@ -15,7 +15,6 @@ body, html {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
-
 :root {
     /*
         --primary-color: 101820
@@ -261,6 +260,12 @@ main {
     margin: 0;
 }
 
+@media (max-width: 480px) {
+    .sectionheader .textcontent {
+        display: none;
+    }
+}
+
 .title {
     font-size: 2.0rem;
     letter-spacing: 1px;
@@ -350,4 +355,27 @@ main {
 /* background colors */
 .bg-red {
     background-color: #e74c3c;
+}
+
+/* loading */
+
+.loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px; /* Adjust as needed */
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--primary-color);
+    border-top: 4px solid var(--secondary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }

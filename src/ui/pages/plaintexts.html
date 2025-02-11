@@ -1,9 +1,9 @@
 <div id="home" class="flexcontainer bgcolor" style="position: relative;">
     <div class="header sectionheader" style="max-height: 6rem;">
-        <div class="icon icon48" data-image-path="svgs/passwords.svg"></div>
+        <div class="icon icon48" data-image-path="svgs/text.svg"></div>
         <div class="textcontent">
-            <h1 class="title" data-lang-id="plaintexts.title">Passwords</h1>
-            <p class="subtitle" data-lang-id="plaintexts.subtitle">Here you can find all your passwords</p>
+            <h1 class="title" data-lang-id="plaintexts.title">plaintexts</h1>
+            <p class="subtitle" data-lang-id="plaintexts.subtitle">Here you can find all your plaintexts</p>
         </div>
         <div class="search-container">
             <div class="search-bar">
@@ -15,14 +15,14 @@
         </div>
     </div>
     <div class="main flexsib"
-        style="max-height: calc(100vh - 12rem);display: flex; justify-content: center; align-items: center;">
+        style="max-height: calc(100vh - 14rem);display: flex; justify-content: center; align-items: center;">
         <!-- credentialsModal for adding new credentials -->
         <div id="credentialsModal" class="credentialsModal" style="display:none;z-index: 999;">
             <div class="credentialsModal-content">
                 <div class="credentialsModal-header">
                     <div class="credentials-title-container">
-                        <span class="credentials-title-icon" data-image-path="svgs/passwords.svg"></span>
-                        <span data-lang-id="credentials.plain_text" class="credentials-title">Add New Password</span>
+                        <span class="credentials-title-icon" data-image-path="svgs/text.svg"></span>
+                        <span data-lang-id="credentials.plain_text" class="credentials-title">Add New plaintext</span>
                     </div>
                     <div class="credentialsModal-header-actions">
                         <div class="icons-inline-container">
@@ -39,55 +39,22 @@
                         <input type="text" id="service" name="service" required>
                     </div>
                     <div class="content-row">
-                        <label data-lang-id="credentials.email_or_username" for="email_or_username" class="data-label">EMAIL/USERNAME:</label>
+                        <label data-lang-id="credentials.email_or_username" for="email_or_username"
+                            class="data-label">EMAIL/USERNAME:</label>
                         <input type="text" id="email_or_username" name="email_or_username" required>
                     </div>
                     <div class="content-row">
-                        <label data-lang-id="credentials.plain_text" for="long_text" class="data-label">LONG TEXT:</label>
+                        <label data-lang-id="credentials.plain_text" for="long_text" class="data-label">LONG
+                            TEXT:</label>
                         <textarea id="long_text" name="long_text" rows="4" required></textarea>
                     </div>
                 </div>
                 <div class="credentialsModal-footer">
-                        <button type="button" data-lang-id="credentials.add_button" class="default-button save-button" onclick="submitCredential()">Add</button>
+                    <button type="button" data-lang-id="credentials.add_button" class="default-button save-button" onclick="submitCredential(1)">Add</button>
                 </div>
             </div>
         </div>
-        <div class="scrollable-list">
-            <div class="list-item">
-                <div class="list-header" onclick="toggleDetails(this)">
-                    <span class="item-number">1</span>
-                    <span class="item-title">Credentials</span>
-                    <div class="item-actions">
-                        <div class="icons-inline-container">
-                            <a class="link-icon-solid" title="Edit" data-image-path="svgs/edit.svg" target="_blank"
-                                rel="noopener noreferrer"></a>
-                            <a class="link-icon-solid" title="Remove" data-image-path="svgs/remove.svg" target="_blank"
-                                rel="noopener noreferrer"></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="list-details">
-                    <div class="email-container">
-                        <label for="email" class="data-label">Email/Username:</label>
-                        <div class="email-text">
-                            <span class="email">user@example.com</span>
-                            <button class="copy-button" onclick="copyToClipboard('user@example.com')"
-                                data-image-path="svgs/copy.svg"></button>
-                        </div>
-                    </div>
-                    <div class="password-container">
-                        <label for="password" class="data-label">Password:</label>
-                        <div class="password-text">
-                            <span
-                                class="password">password123password123password123password123password123password123password123password123password123password123password123password123password123password123password123password123password123password123password123password123password123password123password123</span>
-                            <button class="copy-button" onclick="copyToClipboard('password123')"
-                                data-image-path="svgs/copy.svg"></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Repeat list-item for more items -->
-        </div>
+        <div id="credentials" class="scrollable-list"></div>
     </div>
     <div class="footer sectionfooter" style="max-height: 6rem;">
         <div class="left">
@@ -186,6 +153,11 @@
         background-color: var(--card-background-color);
         max-width: calc(140vh);
         margin: auto;
+        margin-bottom: 18px;
+    }
+
+    .list-item:last-child {
+        margin-bottom: 0;
     }
 
     .list-header {
@@ -225,8 +197,7 @@
     .service-info {}
 
     .email-container,
-    .password-container {
-
+    .plaintext-container {
         display: flex;
         flex-direction: column;
         margin-top: 5px;
@@ -243,8 +214,7 @@
         font-family: monospace;
     }
 
-    .email-text,
-    .password-text {
+    .email-text {
         display: flex;
         align-items: center;
         overflow: hidden;
@@ -255,16 +225,40 @@
         padding: 10px;
         font-family: monospace;
         background-color: var(--background-color);
+    }
 
+    .plaintext-text {
+        display: flex;
+        flex-direction: column;
+        /* Change to column for multi-line support */
+        align-items: flex-start;
+        /* Align items to the start for better text alignment */
+        overflow: auto;
+        /* Allow overflow in both directions */
+        white-space: pre-wrap;
+        /* Allow text to wrap */
+        word-break: break-word;
+        /* Break long words */
+        border: 1px solid var(--primary-color);
+        border-radius: 4px;
+        padding: 10px;
+        font-family: monospace;
+        background-color: var(--background-color);
     }
 
     .email,
-    .password {
+    .plaintext {
         font-size: 14px;
         color: var(--primary-color);
         flex-grow: 1;
         overflow-x: auto;
         white-space: nowrap;
+    }
+
+    .plaintext {
+        white-space: pre-wrap;
+        overflow: auto;
+        max-width: 100%;
     }
 
     .copy-button {
@@ -328,7 +322,7 @@
     /* credentialsModal styles */
     .credentialsModal {
         display: none;
-        position: absolute; 
+        position: absolute;
         z-index: 999;
         height: 80%;
         width: 100%;

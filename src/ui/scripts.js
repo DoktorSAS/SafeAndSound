@@ -34,12 +34,13 @@ function unloadScript(scriptId) {
 }
 
 // scripts.js
-let currentPage = "home.html"
-let scriptLoaded = "null"
+var currentPage = "home.html"
+var scriptLoaded = "null"
+var language = "en"
 async function load_page_content(page) {
     if (scriptLoaded != "null")
         unloadScript(scriptLoaded);
-    let language = "en"
+    
     try {
         eel.configuration_get("language")(function (value) {
             if (value) {
@@ -51,13 +52,13 @@ async function load_page_content(page) {
         eel.get_page_content(page)(async function (content_html) {
             scriptLoaded = page
             if (page == "passwords.html" || page == "plaintexts.html") {
-                loadScript('./scripts/credentials.js', scriptLoaded)
+                await loadScript('./scripts/credentials.js', scriptLoaded)
             }
             if (page == "home.html") {
-                loadScript('./scripts/home.js', scriptLoaded)
+                await loadScript('./scripts/home.js', scriptLoaded)
             }
             if (page == "settings.html") {
-                loadScript('./scripts/settings.js', scriptLoaded)
+                await loadScript('./scripts/settings.js', scriptLoaded)
             }
             await updateSidebarLanguage(language);
             const translations = await loadLanguage(language);
@@ -167,16 +168,16 @@ async function load_page_content(page) {
                     });
                     break;
                 case "home.html":
-                    
                     eel.configuration_get('auth_method')(function (value) {
                         inputType = value;
                         showInput();
                     });
                     break;
                 case "passwords.html":
+                    update_credentials_data(0);
+                    break
                 case "plaintexts.html":
-                    scriptLoaded = "credentials"
-                    loadScript('./scripts/credentials.js', scriptLoaded)
+                    update_credentials_data(1);
                     break;
             }
         })

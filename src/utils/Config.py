@@ -3,9 +3,14 @@ import logging
 import os
 
 import eel
+import utils.Logger
 
 class Config:
-    
+    Logger: utils.Logger = None
+
+    def set_logger(self, logger: utils.Logger):
+        self.Logger = logger
+
     APP: dict = {
         "min_width_size": 720,
         "min_hight_size": 1280,
@@ -32,7 +37,7 @@ class Config:
             
             if self.ConfigParser.has_option(section, key):
                 # Printing for debugging
-                print(f"Setting {key} in {section} to {value}")
+                self.Logger.info(f"Setting {key} in {section} to {value}")
                 
                 # Set the value in ConfigParser
                 self.ConfigParser.set(section, key, str(value))
@@ -44,25 +49,24 @@ class Config:
                 # Update internal dictionaries
                 if key in self.APP:
                     self.APP[key] = self.__convert_type(key, value)
-                    print(f"Updated APP: {key} to {self.APP[key]}")
+                    self.Logger.info(f"Updated APP: {key} to {self.APP[key]}")
                 elif key in self.DEV:
                     self.DEV[key] = self.__convert_type(key, value)
-                    print(f"Updated DEV: {key} to {self.DEV[key]}")
+                    self.Logger.info(f"Updated DEV: {key} to {self.DEV[key]}")
                 
                 # Verify the change
                 new_value = self.ConfigParser.get(section, key)
-                print(f"Config file now has: {key} = {new_value}")
+                self.Logger.info(f"Config file now has: {key} = {new_value}")
                 
                 return True
             else:
-                print(f"Key {key} not found in {section}")
+                self.Logger.error(f"Key {key} not found in {section}")
                 return False
 
         @eel.expose
         def configuration_get(key=None):
             """Get configuration values. If key is None, return all configs."""
             if key is None:
-                # Return all configurations as a dictionary
                 return {s: dict(self.ConfigParser.items(s)) for s in self.ConfigParser.sections()}
             else:
                 section = 'DEV' if key in self.DEV else 'APP'
@@ -105,7 +109,6 @@ class Config:
         self.DEV['log_fpath'] = self.DEV['log_fpath'].rstrip('/').rstrip('\\')
 
     def __update__(self, config_fpath: str):
-        print(config_fpath)
         # Update ConfigParser with the current values of the dictionaries
         self.ConfigParser['APP'] = {key: str(value) for key, value in self.APP.items()}
         self.ConfigParser['DEV'] = {key: str(int(value)) if isinstance(value, bool) else value for key, value in self.DEV.items()}

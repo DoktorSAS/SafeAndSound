@@ -1,5 +1,5 @@
 <div id="settings" class="flexcontainer bgcolor">
-    <div class="header sectionheader" style="max-height: 6rem;">
+    <div class="header sectionheader" style="min-height: 6rem;">
         <div class="icon icon48" data-image-path="svgs/settings.svg"></div>
         <div class="textcontent">
             <h1 class="title" data-lang-id="settings.title">Settings</h1>
@@ -22,17 +22,17 @@
                             <div class="selectlist-container">
                                 <select id="selectlist-option-algorithm" class="selectlist-input"
                                     onchange="updateEncryptAlgorithm()">
+                                    <option value="BASE64">BASE64</option>
                                     <option value="RSA">RSA</option>
                                     <option value="MD5">MD5</option>
                                     <option value="SHA256">SHA256</option>
-                                    <option value="BASE64">BASE64</option>
+                                    <option value="NONE">NONE</option>
                                 </select>
                             </div>
                         </div>
                     </div>
                     <div id="keys-locations" style="margin: 0.5rem" class="outlinedcontainer borderoutline"
                         data-text="KEYS LOCATIONS">
-
                         <div class="option">
                             <div class="option-text">
                                 <h1 data-lang-id="settings.private_key_location_title" class="title">Private key

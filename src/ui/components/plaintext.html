@@ -1,0 +1,29 @@
+<div class="list-item">
+    <div class="list-header" onclick="toggleDetails(this)">
+        <span class="item-number"></span>
+        <span class="item-title"></span>
+        <div class="item-actions">
+            <a class="link-icon-solid" title="Edit" data-image-path="svgs/edit.svg" target="_blank"
+                    rel="noopener noreferrer" onclick="editCredential(event,1); event.preventDefault(); event.stopPropagation();"></a>
+                <a class="link-icon-solid" title="Remove" data-image-path="svgs/remove.svg" target="_blank"
+                    rel="noopener noreferrer" onclick="removeCredential(event,1); event.preventDefault(); event.stopPropagation();"></a>
+        </div>
+    </div>
+    <div class="list-details">
+        <div class="email-container">
+            <label for="email" class="data-label" data-lang-id="credentials.email_or_username"></label>
+            <div class="email-text">
+                <span class="email"></span>
+                <button class="copy-button" onclick="copyToClipboard('')"
+                    data-image-path="svgs/copy.svg"></button>
+            </div>
+        </div>
+        <div class="plaintext-container">
+            <label for="plaintext" class="data-label" data-lang-id="credentials.plain_text"></label>
+            <div class="plaintext-text">
+                <span class="plaintext"></span>
+                
+            </div>
+        </div>
+    </div>
+</div>
