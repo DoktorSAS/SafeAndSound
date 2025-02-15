@@ -40,14 +40,24 @@ def check_values(expected_values, actual_values):
             print(f"- {fail[0]}: Expected {fail[1]}, but got {fail[2]}")
 
 if __name__ == "__main__":
+    key_text = "This is my secret passphrase"
     actual_values = {
         'Base64_encode': Ciphers.encrypt("Hello, World!", CryptoType.BASE64, ""),
         'Base64_decode': Ciphers.decrypt('SGVsbG8sIFdvcmxkIQ==', CryptoType.BASE64, ""),
+        'AES_Derive_Key': Ciphers.AES_Derive_Key("Hello, World!"),
+        'Fernet_encode': Ciphers.encrypt("Hello, World!", CryptoType.FERNET, key_text),
+        'Fernet_decode': Ciphers.decrypt('GpuoBqEM7E9QVB2MBSes9g==', CryptoType.FERNET, key_text),
     }
 
     expected_values = {
-        'Base64_encode': b'SGVsbG8sIFdvcmxkIQ==',
-        'Base64_decode': b"Hello, World!",
+        'Base64_encode': 'SGVsbG8sIFdvcmxkIQ==',
+        'Base64_decode': "Hello, World!",
+        'AES_Derive_Key':  b'\xdf\xfd`!\xbb+\xd5\xb0\xafgb\x90\x80\x9e\xc3\xa51\x91\xdd\x81\xc7\xf7\nK(h\x8a6!\x82\x98o',
+        'Fernet_encode': "GpuoBqEM7E9QVB2MBSes9g==",
+        'Fernet_decode': "Hello, World!"
     }
 
     check_values(expected_values, actual_values)
+
+
+    

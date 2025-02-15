@@ -1,3 +1,5 @@
+let inputType = "c"; // c: passcode, p: password, d: dropzone, t: all
+
 function loadScript(src, id, onload) {
     return new Promise((resolve, reject) => {
         const script = document.createElement('script');

@@ -215,6 +215,8 @@ main {
 
 .flexcontainer .header {
     padding: 1rem;
+    min-height: 6rem;
+    max-height: 6rem;
 }
 
 .flexcontainer .main {
@@ -225,6 +227,8 @@ main {
 .flexcontainer .footer {
     padding: 1rem;
     margin-top: auto;
+    min-height: 6rem;
+    max-height: 6rem;
 }
 
 .sectionheader {

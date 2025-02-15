@@ -17,13 +17,7 @@ class CredentialsType(Enum):
 
 class CryptoType(Enum):
     AES = "AES"
-    RSA = "RSA"
-    MD5 = "MD5"
-    SHA1 = "SHA1"
-    SHA256 = "SHA256"
-    SHA512 = "SHA512"
-    HMAC = "HMAC"
-    ECDSA = "ECDSA"
+    FERNET = "FERNET"
     BASE64 = "BASE64"
     NONE = "NONE"
 

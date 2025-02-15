@@ -7,10 +7,9 @@ import utils.DataParser
 from utils.Enum import CredentialsType, CryptoType
 
 import os
-import subprocess
+import base64
 
 import eel
-import sys
 
 import utils.Inputs as EELInputs
 
@@ -23,64 +22,25 @@ class GUI:
     Credentials: utils.DataParser = None
     Key: str = None # password, passcode or image
 
-    def locate_chromium():
-        # Define common paths for Chromium-based browsers by OS
-        paths = {
-            'linux': [
-                '/usr/bin/chromium-browser',
-                '/usr/bin/chromium',
-                '/usr/bin/google-chrome',
-                '/usr/bin/google-chrome-stable',
-                '/usr/bin/chrome',
-                '/usr/bin/brave-browser',
-                '/usr/bin/vivaldi-stable'
-            ],
-            'darwin': [  # macOS
-                '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
-                '/Applications/Chromium.app/Contents/MacOS/Chromium',
-                '/Applications/Brave Browser.app/Contents/MacOS/Brave Browser',
-                '/Applications/Vivaldi.app/Contents/MacOS/Vivaldi'
-            ],
-            'win32': [  # Windows
-                r'C:\Program Files\Google\Chrome\Application\chrome.exe',
-                r'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe',
-                r'C:\Program Files\Chromium\Application\chrome.exe',
-                r'C:\Program Files (x86)\Chromium\Application\chrome.exe',
-                r'C:\Program Files\BraveSoftware\Brave-Browser\Application\brave.exe',
-                r'C:\Program Files (x86)\BraveSoftware\Brave-Browser\Application\brave.exe',
-                r'C:\Users\[user]\AppData\Local\Vivaldi\Application\vivaldi.exe'  # User-dependent path
-            ]
-        }
-
-        # Get the current operating system
-        current_os = 'linux' if sys.platform.startswith('linux') else (
-            'darwin' if sys.platform == 'darwin' else 
-            'win32' if sys.platform.startswith('win') else None
-        )
-
-        if current_os not in paths:
-            return None  # Unsupported OS or unrecognized
-
-        # Check for each browser path
-        for path in paths[current_os]:
-            # On Windows, replace [user] with actual username if needed
-            if current_os == 'win32' and '[user]' in path:
-                path = path.replace('[user]', os.getlogin())
-            if os.path.isfile(path):
-                return path
-            
-            # For more robustness, try using which on Linux/macOS
-            if current_os in ['linux', 'darwin']:
-                proc = subprocess.Popen(['which', path], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                if proc.wait() == 0:
-                    return proc.stdout.read().decode('utf-8').strip()
-        
-        return None  # No Chromium-based browser found
-
     def __eel__(self):
         """
         function used to handle all the python function exposed for the eel use
         """
+        @eel.expose
+        def set_key(key: str):
+            self.Logger.info(f"Setting key to {key[:10]}...{key[-10:]}")
+            self.Key = key
+        
+        @eel.expose
+        def set_key_base64(key: str) -> bool:
+            try:
+                self.Logger.info(f"Setting key to {key[:10]}...{key[-10:]}")
+                self.Key = key
+                return True
+            except Exception as e:
+                self.Logger.error(f"Key update error: {e}")
+                return False
+
         @eel.expose
         def add_credential(type: int, encryption: str, service: str, username: str, value: str):
             type_str: str = "Credentials" if type == CredentialsType.CREDENTIALS.value else "PlainTexts"
@@ -89,14 +49,14 @@ class GUI:
             cryptotype: CryptoType = CryptoType.string_to_enum(encryption)
             if cryptotype != CryptoType.NONE.value:
                 #service = str(Ciphers.encrypt(service, cryptotype))
-                username = str(Ciphers.encrypt(username, cryptotype))
-                value = str(Ciphers.encrypt(value, cryptotype))
+                username = str(Ciphers.encrypt(username, cryptotype, self.Key))
+                value = str(Ciphers.encrypt(value, cryptotype, self.Key))
             self.Logger.info(f'Encrypted service: {service}')
             if type == CredentialsType.CREDENTIALS.value:
                 self.Credentials.append_credential(utils.DataParser.Credential(service, username, value))
             else:
                 self.PlainTexts.append_credential(utils.DataParser.Credential(service, username, value))
-        
+
         @eel.expose
         def remove_credential(type: int, id: int):
             self.Logger.info(f"Removing credential with id {id} from {type}")
@@ -119,8 +79,8 @@ class GUI:
             if algorithm != CryptoType.NONE.value:
                 for credential in credentials:
                     #credential['service'] = Ciphers.decrypt(credential['service'], cryptotype)
-                    credential['email_or_username'] = Ciphers.decrypt(credential['email_or_username'], cryptotype)
-                    credential['value'] = Ciphers.decrypt(credential['value'], cryptotype)
+                    credential['email_or_username'] = Ciphers.decrypt(credential['email_or_username'], cryptotype, self.Key)
+                    credential['value'] = Ciphers.decrypt(credential['value'], cryptotype, self.Key)
             return credentials
         
         @eel.expose
@@ -150,22 +110,27 @@ class GUI:
             
             except Exception as e:
                 # Logger the error instead of exposing it to the client for security reasons
-                print(f"An error occurred: {e}")
+                self.Logger.error(f"An error occurred: {e}")
                 return "<h1>Error Loading Page</h1>"
 
         @eel.expose
-        def open_file_dialog_eel(options_json):
+        def open_file_dialog(options_json):
             try:
                 options = json.loads(options_json)
                 # Ensure 'multiple' is set correctly
                 if 'multiple' not in options:
                     options['multiple'] = False  # Default to single file selection
                 
-                result = self.Inputs.open_file_dialog(**options)
+                fpath = self.Inputs.open_file_dialog(**options)
                 # Ensure result is a list or string as expected by your application
-                if isinstance(result, tuple):  # Tkinter returns tuple for multiple files
-                    result = list(result) if options['multiple'] else result[0]
-                return result
+                if isinstance(fpath, tuple):  # Tkinter returns tuple for multiple files
+                    fpath = list(fpath) if options['multiple'] else fpath[0]
+                
+                if fpath:
+                    with open(fpath, 'rb') as file:
+                        self.Key = base64.b64encode(file.read()).decode('utf-8')
+                
+                return fpath if fpath else None
             except Exception as e:
                 self.Logger.error(f"File dialog error: {e}")
                 return None
@@ -236,6 +201,7 @@ class GUI:
                             '--disable-password-manager-reauthentication',
                             '--disable-password-manager-warning',
                             '--password-manager-internal-disabled',
+                            '-safe-mode'
                         ]
         )
         

@@ -54,3 +54,5 @@ There are various algorithms for encrypting and decrypting strings, but not all 
 In this project, we aim to provide two encryption options: the first relates to the file that actually contains the data, and the second concerns the method used for decrypting passwords.
 
 The algorithms chosen for encrypting and decrypting individual credentials must be bidirectional, meaning they should work in both directions, while the algorithm for encrypting the file can be one-way.
+
+It's challenging to be consistent with the encryption of strings and files. Encrypting the file might not be necessary since the file containing the data is just a JSON with values encrypted based on the algorithm chosen by the user when entering the value.

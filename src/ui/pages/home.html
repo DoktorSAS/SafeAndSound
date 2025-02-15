@@ -43,11 +43,11 @@
             </div>
 
             <div id="dropzoneInput" class="card-input-container" ondrop="handleDrop(event)"
-                ondragover="allowDrop(event)">
+                ondragover="allowDrop(event)" onclick="selectFile()">
                 <div class="card-input-header">
                     <img alt="banner" src="../assets/banner.png">
                 </div>
-                <div class="card-input-main dropzone">
+                <div class="card-input-main dropzone" id="dropzone" ondragover="allowDrop(event)" ondrop="handleDrop(event)">
                     <h2 class="card-input-main-title">Dropzone</h2>
                     <p class="card-input-main-subtitle" data-lang-id="home.dropzone_description">Drop a file here or click to browse</p>
                     <input type="file" id="fileInput" style="display: none;" onchange="handleFileSelect(event)">
@@ -68,19 +68,19 @@
             </div>
         </div>
         <div class="right">
-            <button class="default-button login-button" data-lang-id="home.decrypt_button">DECRYPT</button>
+            <button id="DECRYPT" onclick="updateKey()" class="default-button login-button" data-lang-id="home.decrypt_button">DECRYPT</button>
         </div>
     </div>
 </div>
 
 <style>
-    :root {
+    /*:root {
         --error: #e74c3c;
         --border-color: #bdc3c7;
         --text-color: #34495e;
         --card-input-bg: #ecf0f1;
         --focus-shadow: #2980b9;
-    }
+    }*/
 
     .login-container>div {
         display: flex;
@@ -202,7 +202,7 @@
     .dropzone {
         border: 0.2rem dashed var(--description-color);
         border-radius: 4px;
-        padding: 2rem 0rem 0rem 0rem;
+        padding: 25% 15% 25% 15%;
         margin: 1.5rem;
         background: var(--background-color);
         transition: all 0.3s ease;

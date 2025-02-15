@@ -1,5 +1,24 @@
 /* home.js */
-let inputType = "c"; // c: passcode, p: password, d: dropzone, t: all
+
+function updatePassword() {
+    const password = document.getElementById("password").value;
+    if (password.length > 0) {
+        eel.set_key(password)();
+    }
+}
+
+function updatePasscode() {
+    const passcode = Array.from(document.getElementsByClassName("passcode")).map(input => input.value).join("");
+    if (passcode.length === 6) {
+        eel.set_key(passcode)();
+    }
+}
+
+function updateKey(){
+    if (inputType === "p") updatePassword();
+    if (inputType === "c") updatePasscode();
+}
+
 async function showInput() {
     const inputs = {
         "passwordInput": "none",
@@ -13,6 +32,10 @@ async function showInput() {
 
     for (let [id, display] of Object.entries(inputs)) {
         document.getElementById(id).style.display = display;
+    }
+
+    if (inputType === "d") {
+        document.getElementById("DECRYPT").style.display = "none";
     }
 }
 
@@ -36,6 +59,16 @@ function moveToNext(field) {
     }
 }
 
+function selectFile() {
+    eel.open_file_dialog('{"multiple": false}')((returnedPath) => {
+        if (returnedPath) {
+            console.log("File path from dialog: ", returnedPath);
+        } else {
+            console.log("No file was selected from the dialog.");
+        }
+    });
+}
+
 function allowDrop(event) {
     event.preventDefault();
 }
@@ -43,10 +76,36 @@ function allowDrop(event) {
 function handleDrop(event) {
     event.preventDefault();
     let files = event.dataTransfer.files;
-    if (files.length > 0) alert("File dropped: " + files[0].name);
+    if (files.length > 0) {
+        processFile(files[0]);
+    }
 }
 
 function handleFileSelect(event) {
     let files = event.target.files;
-    if (files.length > 0) alert("File selected: " + files[0].name);
+    if (files.length > 0) {
+        processFile(files[0]);
+    }
+}
+
+function processFile(file) {
+    let reader = new FileReader();
+    
+    reader.onload = function(event) {
+        let binaryString = String.fromCharCode.apply(null, new Uint8Array(event.target.result));
+        let base64String = btoa(binaryString);
+        alert(base64String)
+        eel.set_key_base64(base64String)((result) => {
+            if (result) {
+                console.log("Key updated successfully");
+                alert("File processed and key updated.");
+            } else {
+                console.log("Failed to update key");
+                alert("Failed to update key.");
+            }
+        });
+    };
+    
+    // Read the file as an ArrayBuffer
+    reader.readAsArrayBuffer(file);
 }
